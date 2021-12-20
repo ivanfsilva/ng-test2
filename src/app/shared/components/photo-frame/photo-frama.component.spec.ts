@@ -40,11 +40,20 @@ describe( PhotoFrameComponent.name, () => {
     fixture.detectChanges();
     let times = 0;
     component.liked.subscribe( () => times++ );
-    tick(500);
     component.like();
     tick(500);
     component.like();
+    tick(500);
 
     expect( times ).toBe( 2 );
   }));
+
+  it(`should display number of likes when (@Input likes ) is incremented`,  () => {
+    fixture.detectChanges();
+    component.likes++;
+    fixture.detectChanges();
+    const element: HTMLElement = fixture.nativeElement.querySelector('.like-counter');
+
+    expect( element.textContent.trim() ).toBe('1');
+  });
 });
